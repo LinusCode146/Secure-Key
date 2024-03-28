@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import QueryWrapper from "@/components/QueryWrapper";
+import React from "react";
+import AuthContext from "@/components/Auth/AuthContext";
+import Navbar from "@/components/Auth/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +18,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+      <html lang="en">
+      <head>
+          <meta charSet="utf-8"/>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+          <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
+          <link rel="icon" type="image/jpg" href="/img/lock.jpg"/>
+          <title>Secure Key</title>
+      </head>
+      <body>
+      <div className="bg">
+          <QueryWrapper>
+              <AuthContext>
+                  <Navbar />
+                  {children}
+              </AuthContext>
+        </QueryWrapper>
+      </div>
+      </body>
+      </html>
   );
 }

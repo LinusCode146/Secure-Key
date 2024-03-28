@@ -1,0 +1,34 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container  label {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 900;
+}
+
+.container  input {
+    height: 4rem;
+    width: 35%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: #f0f0f0;
+    font-size: 1.5em;
+}
+
+.container input:focus {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling when hovering over the input */
+.container input:hover {
+    background-color: #e0e0e0;
+}
