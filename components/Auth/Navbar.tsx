@@ -4,7 +4,6 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 import styles from "@/public/styles/Navbar.module.css";
 import Link from "next/link";
-import NavLinks from "@/components/NavLinks";
 import LoginBtn from "@/components/Auth/LoginBtn";
 import LogoutBTN from "@/components/Auth/LogoutBtn";
 
