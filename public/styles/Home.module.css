@@ -22,6 +22,7 @@
     transition: all 0.3s ease;
     background-color: #f0f0f0;
     font-size: 1.5em;
+    margin-bottom: 12vh;
 }
 
 .container input:focus {
@@ -31,4 +32,38 @@
 /* Styling when hovering over the input */
 .container input:hover {
     background-color: #e0e0e0;
+}
+
+.mode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 0;
+    width: 15%;
+    height: 3rem;
+}
+
+.mode button {
+    font-weight: bolder;
+    padding: 1rem;
+    background: whitesmoke;
+    border: none;
+    transition: all .5s ease-in-out;
+    width: 100%;
+    height: 100%;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 22vh;
+}
+
+.mode button:hover {
+    filter: brightness(.8);
+    cursor: pointer;
+}
+
+.current {
+    border: 3px solid black !important;
 }

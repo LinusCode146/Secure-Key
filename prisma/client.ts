@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import axios from "axios";
 
 // @ts-ignore
 const client = globalThis.prisma || new PrismaClient()

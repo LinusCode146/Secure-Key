@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import QueryWrapper from "@/components/QueryWrapper";
 import React from "react";
 import AuthContext from "@/components/Auth/AuthContext";
 import Navbar from "@/components/Auth/Navbar";
+import {MasterPasswordProvider} from "@/components/MasterPasswordContext";
 
 
 export const metadata: Metadata = {
@@ -30,8 +30,10 @@ export default function RootLayout({
       <div className="bg">
           <QueryWrapper>
               <AuthContext>
-                  <Navbar />
-                  {children}
+                  <MasterPasswordProvider>
+                      <Navbar />
+                      {children}
+                  </MasterPasswordProvider>
               </AuthContext>
         </QueryWrapper>
       </div>

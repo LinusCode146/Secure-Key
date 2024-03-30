@@ -10,13 +10,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Password {
+model MasterPassword {
   id        String   @id @default(cuid())
   password  String
-  userId    String
+  userId    String   @unique
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Password {
+  id          String   @id @default(cuid())
+  password    String
+  description String
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Account {
@@ -48,14 +58,14 @@ model Session {
 }
 
 model User {
-  id             String     @id @default(cuid())
+  id             String          @id @default(cuid())
   name           String?
-  email          String?    @unique
+  email          String          @unique
   emailVerified  DateTime?
   image          String?
   accounts       Account[]
   sessions       Session[]
-  masterpassword String
+  masterpassword MasterPassword?
   passwords      Password[]
 }
 
@@ -65,9 +75,4 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-}
-
-model UserAccessPassword {
-  id       String @id @default(cuid())
-  password String
 }
