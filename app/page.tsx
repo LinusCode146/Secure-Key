@@ -7,6 +7,7 @@ import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import {useRouter} from "next/navigation";
 import {useMasterPassword} from "@/components/MasterPasswordContext";
+import hash from "@/util/hashing";
 
 type PasswordData = { password: string };
 
@@ -34,7 +35,7 @@ export default function Home() {
         },
         onSuccess: (data) => {
             const MP = data.data.password;
-            if(masterPassword === MP) {
+            if(hash(masterPassword.slice()) === MP) {
                 toast.success("Correct Password");
                 setMasterPasswordCorrect(true);
                 router.push("/dashboard");

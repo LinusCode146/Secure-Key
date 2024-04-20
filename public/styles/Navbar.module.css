@@ -6,6 +6,7 @@
     align-items: center;
     user-select: none;
     border-bottom: 1px solid darkgray;
+    z-index: -1;
 }
 
 .container > * {

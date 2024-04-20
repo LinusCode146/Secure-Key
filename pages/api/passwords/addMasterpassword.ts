@@ -4,6 +4,7 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 
 import prisma from "@/prisma/client";
+import hash from "@/util/hashing";
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
@@ -29,10 +30,12 @@ export default async function handler(
         return res.status(403).json({message: "You have an existing Masterpassword"});
     }
 
+    const hashedMasterpassword = hash(password.slice());
+
     try {
         const result = await prisma.MasterPassword.create({
             data: {
-                password,
+                password: hashedMasterpassword,
                 userId: prismaUser?.id,
             }
         })
