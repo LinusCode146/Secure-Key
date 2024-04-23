@@ -4,6 +4,7 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 
 import prisma from "@/prisma/client";
+import {encrypt} from "@/util/cipher";
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
@@ -13,7 +14,7 @@ export default async function handler(
     if(!session) return res.status(401).json({ message: "Please sign in to add a password!" });
     if( req.method !== "POST") return res.status(401).json({message: "Contacted add Password API route..."})
 
-    const { password, description } = req.body;
+    let { password, description, masterPassword } = req.body;
 
     if ( password.trim().length < 5 || description.trim().length < 1 ) return res.status(403).json({message: "Field cannot be empty"});
 
@@ -21,7 +22,8 @@ export default async function handler(
         where: { email: session?.user?.email },
     });
 
-    console.log(password, description);
+    password = encrypt(password.trim(), masterPassword);
+
     try {
         const result = await prisma.Password.create({
             data: {

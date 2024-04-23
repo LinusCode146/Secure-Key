@@ -17,7 +17,7 @@ export default async function handler(
         //Delete a post
         try {
 
-            const result = await prisma.MasterPassword.deleteMany();
+            const result = await prisma.Password.deleteMany();
             res.status(200).json(result);
         } catch(err) {
             res.status(403).json({message: "Error occurred while deleting the post"})

@@ -4,7 +4,7 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 
 import prisma from "@/prisma/client";
-import hash from "@/util/hashing";
+import hash from "@/util/cipher";
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
@@ -16,7 +16,7 @@ export default async function handler(
 
     const { password } = req.body;
 
-    if ( password.trim().length < 5 ) return res.status(403).json({message: "Password needs to be 5 characters long!"});
+    if ( password.trim().length < 6 ) return res.status(403).json({message: "Password needs to be 5 characters long!"});
 
     const prismaUser = await prisma.user.findUnique({
         where: { email: session?.user?.email },

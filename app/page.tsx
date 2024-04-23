@@ -6,8 +6,8 @@ import {useMutation} from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import {useRouter} from "next/navigation";
-import {useMasterPassword} from "@/components/MasterPasswordContext";
-import hash from "@/util/hashing";
+import hash from "@/util/cipher";
+import {useMasterPassword} from "@/context/MasterPasswordContext";
 
 type PasswordData = { password: string };
 
@@ -15,7 +15,7 @@ export default function Home() {
     const router = useRouter();
     const [masterPassword, setMasterPassword] = useState<string>('');
     const [createMode, setCreateMode] = useState<boolean>(false);
-    const { setMasterPasswordCorrect } = useMasterPassword()
+    const {setGlobalMasterPassword} = useMasterPassword();
 
     const createMasterpassword = useMutation({
         mutationFn: (data: PasswordData) => {
@@ -36,8 +36,8 @@ export default function Home() {
         onSuccess: (data) => {
             const MP = data.data.password;
             if(hash(masterPassword.slice()) === MP) {
+                setGlobalMasterPassword(masterPassword);
                 toast.success("Correct Password");
-                setMasterPasswordCorrect(true);
                 router.push("/dashboard");
             }else {
                 toast.error("Incorrect Password");

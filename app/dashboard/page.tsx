@@ -3,28 +3,37 @@
 import {redirect} from "next/navigation";
 import UserPasswords from "@/components/UserPasswords";
 import {useEffect} from "react";
-import {useMasterPassword} from "@/components/MasterPasswordContext";
-
+import {useMasterPassword} from "@/context/MasterPasswordContext";
+import styles from '@/public/styles/LoadingSpinner.module.css';
 
 
 export default function Dashboard() {
-    const { isMasterPasswordCorrect } = useMasterPassword();
+    const { globalMasterPassword } = useMasterPassword();
 
     useEffect(() => {
-        if (!isMasterPasswordCorrect) {
+        if (!globalMasterPassword) {
             redirect('/')
         }
-    }, [isMasterPasswordCorrect]);
+    }, [globalMasterPassword]);
 
 
-    if (!isMasterPasswordCorrect) {
-        return <div>Loading...</div>; // Or return a loading spinner
+    if (!globalMasterPassword) {
+        return (
+            <main className={styles.wrapper}>
+                <div className={styles.ellips}>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </main>
+        );
     }
 
 
     return (
         <main>
-           <UserPasswords />
+            <UserPasswords globalMasterPassword={globalMasterPassword}/>
         </main>
     )
 }

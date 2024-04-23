@@ -6,14 +6,16 @@ import styles from '@/public/styles/UserPasswords.module.css';
 import {useRef, useState} from "react";
 import toast from "react-hot-toast";
 import useCopyToClipboard from "@hooks/useCopyToClipboard";
+import {decrypt} from "@/util/cipher";
 
 type Password = {
     id?: string
     password: string
     description: string
+    masterPassword: string
 }
 
-export default function UserPasswords() {
+export default function UserPasswords({globalMasterPassword}: {globalMasterPassword: string}) {
     const [description, setDescription] = useState<string>('');
     const [passwordField, setPasswordField] = useState<string>('');
     const descRef = useRef<HTMLInputElement>(null);
@@ -57,7 +59,7 @@ export default function UserPasswords() {
     if (data) console.log(data)
 
     function submitHandler() {
-        addPassword.mutate({password: passwordField, description: description});
+        addPassword.mutate({password: passwordField, description: description, masterPassword: globalMasterPassword});
         if (descRef.current) descRef.current.value = "";
         if (passRef.current) passRef.current.value = "";
     }
@@ -79,12 +81,12 @@ export default function UserPasswords() {
                     <ul className={styles.password} id={password.id}>
                         <div className={styles.description}>{password.description}</div>
                         <input onClick={() => {
-                            copy(password.password).then();
-                            toast.success("Copied password to clipboard")
+                            copy(decrypt(password.password, globalMasterPassword)).then();
+                            toast.success("Copied password to clipboard");
                            }}
                            readOnly
                            type="password"
-                           value={password.password}
+                           value={"aaaaaaaaaaaa"}
                            className={styles.ps}/>
                         <img onClick={() => deletePassword.mutate({id: password.id})} src="/img/trash_can.png" alt={"Trash can"} />
                     </ul>
@@ -92,7 +94,7 @@ export default function UserPasswords() {
             </div>
         </div>
 
-    )
+    );
 }
 
 async function getUserPasswords() {

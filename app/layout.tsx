@@ -4,7 +4,7 @@ import QueryWrapper from "@/components/QueryWrapper";
 import React from "react";
 import AuthContext from "@/components/Auth/AuthContext";
 import Navbar from "@/components/Auth/Navbar";
-import {MasterPasswordProvider} from "@/components/MasterPasswordContext";
+import {MasterPasswordProvider} from "@/context/MasterPasswordContext";
 
 
 export const metadata: Metadata = {
