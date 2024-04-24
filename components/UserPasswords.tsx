@@ -76,6 +76,7 @@ export default function UserPasswords({globalMasterPassword}: {globalMasterPassw
 
             <h1>Your Passwords</h1>
 
+
             <div className={styles.psList}>
                 {data?.map((password: Password) => (
                     <ul className={styles.password} id={password.id}>
