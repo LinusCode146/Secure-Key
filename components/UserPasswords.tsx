@@ -7,15 +7,12 @@ import {useRef, useState} from "react";
 import toast from "react-hot-toast";
 import useCopyToClipboard from "@hooks/useCopyToClipboard";
 import {decrypt} from "@/util/cipher";
+import {Masterpassword} from "@/public/types/main";
+import {Password} from "@/public/types/main";
 
-type Password = {
-    id?: string
-    password: string
-    description: string
-    masterPassword: string
-}
 
-export default function UserPasswords({globalMasterPassword}: {globalMasterPassword: string}) {
+
+export default function UserPasswords({globalMasterPassword}: Masterpassword) {
     const [description, setDescription] = useState<string>('');
     const [passwordField, setPasswordField] = useState<string>('');
     const descRef = useRef<HTMLInputElement>(null);

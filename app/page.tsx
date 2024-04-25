@@ -8,8 +8,8 @@ import toast from "react-hot-toast";
 import {useRouter} from "next/navigation";
 import hash from "@/util/cipher";
 import {useMasterPassword} from "@/context/MasterPasswordContext";
+import {PasswordData} from "@/public/types/main";
 
-type PasswordData = { password: string };
 
 export default function Home() {
     const router = useRouter();
@@ -22,7 +22,7 @@ export default function Home() {
             return axios.post('/api/passwords/addMasterpassword', data);
         },
         onSuccess: () => {
-            toast.success("Created your Masterpassword")
+            toast.success("Created Masterpassword");
         },
         onError: error => {
             if (error instanceof AxiosError) toast.error(error?.response?.data.message);
