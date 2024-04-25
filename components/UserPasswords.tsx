@@ -11,7 +11,6 @@ import {Masterpassword} from "@/public/types/main";
 import {Password} from "@/public/types/main";
 
 
-
 export default function UserPasswords({globalMasterPassword}: Masterpassword) {
     const [description, setDescription] = useState<string>('');
     const [passwordField, setPasswordField] = useState<string>('');
