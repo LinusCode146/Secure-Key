@@ -16,7 +16,8 @@ export default async function handler(
 
     let { password, description, masterPassword } = req.body;
 
-    if ( password.trim().length < 5 || description.trim().length < 1 ) return res.status(403).json({message: "Field cannot be empty"});
+    if ( description.trim().length < 1  ) return res.status(403).json({message: "Please enter a description!"});
+    if ( password.trim().length < 5 ) return res.status(403).json({message: "Passwords needs to be 5 characters long!"});
 
     const prismaUser = await prisma.user.findUnique({
         where: { email: session?.user?.email },
