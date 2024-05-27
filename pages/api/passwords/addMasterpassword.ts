@@ -17,7 +17,6 @@ export default async function handler(
     const { password } = req.body;
 
     if ( password.trim().length < 6 ) return res.status(403).json({message: "Password needs to be 6 characters long!"});
-    if ( !password.containsUppercaseCharacter ) return res.status(403).json({message: "Passwords needs to contain uppercase letters!"});
 
     const prismaUser = await prisma.user.findUnique({
         where: { email: session?.user?.email },
